@@ -1,0 +1,24 @@
+.main-title {
+  position: relative;
+  font-size: 3.125rem;
+  font-weight: 400;
+  margin: 0 0 1.563rem 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0.688rem; // Compensate ascender
+    bottom: 0.688rem; // Compensate descender
+    left: -2.375rem;
+    width: 0.25rem;
+    background-color: $primary-color;
+  }
+}
+
+.pretitle {
+  margin: 0 0 0.938rem 0;
+  text-transform: uppercase;
+  font-size: 0.719rem;
+  letter-spacing: 0.5rem;
+  color: $pretitle-color;
+}

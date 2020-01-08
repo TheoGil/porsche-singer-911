@@ -1,0 +1,12 @@
+.button {
+  margin-top: 1.375rem;
+  border: 0.188rem $primary-color solid;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.281rem;
+  background-color: transparentize($primary-color, 0.9);
+  padding: 1.063rem 3.063rem;
+  color: white;
+  box-shadow: 0 1.25rem 3.125rem 0 transparentize(#000000, 0.75);
+  cursor: pointer;
+}
