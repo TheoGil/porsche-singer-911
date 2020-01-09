@@ -8,6 +8,7 @@
 @import "./typography/headings";
 @import "./typography/text";
 @import "./components/buttons";
+@import "./components/thumbnails";
 
 body {
   background-color: $body-bg-color;
@@ -42,6 +43,9 @@ main {
 
 .text-content-container {
   box-sizing: border-box;
-  padding: 5rem 8.75rem 5rem 5.3125rem;
   color: $text-color;
+}
+
+.text-content-wrapper {
+  padding: 5rem 8.75rem 5rem 5.3125rem;
 }
