@@ -10,23 +10,12 @@
 @import "./components/buttons";
 @import "./components/thumbnails";
 @import "./components/slideshow.-controls";
+@import "./components/footer";
 
 body {
   background-color: $body-bg-color;
   font-family: Gilroy, sans-serif;
-}
-
-.wwrapper {
-  max-width: 1200px;
-  margin: auto;
-}
-
-.main-visual-container,
-.text-content-container {
-  width: 50%;
-}
-
-main {
+  overflow-x: hidden;
   // @FIXME Gradient isn't smooth because start and stop values are very close.
   // lead n°1 - make it a plain background, use a absolute positioned pseudo element, apply a white to black gradient, play with it's opacity and blend mode
   // lead n°2 - use canvas
@@ -38,13 +27,27 @@ main {
   );
 }
 
+.wwrapper {
+  max-width: $wwrapper-width;
+  margin: auto;
+}
+
+.main-visual-container,
+.text-content-container {
+  width: 50%;
+}
+
 .main-visual {
   max-width: 100%;
+  display: block;
 }
 
 .text-content-container {
   box-sizing: border-box;
   color: $text-color;
+  display: flex;
+  flex-direction: column;
+  z-index: 1; // Create new stacking context
 }
 
 .text-content-wrapper {
