@@ -1,0 +1,62 @@
+.slideshow-controls {
+  margin: 2.938rem 0;
+
+  .arrow-button:nth-child(2) {
+    margin-left: 2.688rem;
+  }
+}
+
+.arrow-button {
+  background-color: transparent;
+  border-width: 0;
+  padding: 0;
+  cursor: pointer;
+
+  &.prev {
+    .active-arrow {
+      transform: translateX(150%);
+    }
+
+    &:hover,
+    &:focus {
+      .active-arrow {
+        transform: translateX(0);
+      }
+
+      .idle-arrow {
+        transform: translateX(-150%);
+      }
+    }
+  }
+
+  &.next {
+    .active-arrow {
+      transform: translateX(-150%);
+    }
+
+    &:hover,
+    &:focus {
+      .active-arrow {
+        transform: translateX(0);
+      }
+
+      .idle-arrow {
+        transform: translateX(150%);
+      }
+    }
+  }
+}
+
+.arrow-button-icon {
+  width: 2.875rem;
+  fill: #6c6c6c;
+
+  .active-arrow,
+  .idle-arrow {
+    transition: transform 250ms $easeOutCubic;
+  }
+
+  .active-arrow {
+    fill: $primary-color;
+  }
+}

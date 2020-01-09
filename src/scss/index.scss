@@ -9,6 +9,7 @@
 @import "./typography/text";
 @import "./components/buttons";
 @import "./components/thumbnails";
+@import "./components/slideshow.-controls";
 
 body {
   background-color: $body-bg-color;
@@ -47,5 +48,5 @@ main {
 }
 
 .text-content-wrapper {
-  padding: 5rem 8.75rem 5rem 5.3125rem;
+  padding: 5rem 8.75rem 0 5.3125rem;
 }
