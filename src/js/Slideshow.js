@@ -37,7 +37,8 @@ class Slideshow {
     this.intensity = options.intensity;
     this.width = this.container.offsetWidth;
     this.height = this.container.scrollHeight;
-    this.duration = options.duration;
+    this.duration = options.transitionDuration;
+    this.autoplayDuration = options.autoplayDuration;
     this.easing = options.easing;
     this.current = null;
 
@@ -204,6 +205,8 @@ class Slideshow {
     index = parseInt(index);
 
     if (index != this.current) {
+      this.updateTimeline(index);
+
       this.thumbnails.forEach(thumbnail => {
         if (thumbnail.classList.contains("active")) {
           thumbnail.classList.remove("active");
@@ -221,26 +224,36 @@ class Slideshow {
           this.current = index;
           this.material.uniforms.texture1.value = this.textures[index];
           this.material.uniforms.progress.value = 0;
-
-          /*
-          gsap.to(this.thumbnails[this.current].querySelector(".progress"), 8, {
-            scaleX: 1,
-            ease: "linear",
-            onComplete: () => {
-              this.next();
-              gsap.to(
-                this.thumbnails[this.current].querySelector(".progress"),
-                {
-                  delay: 0.5,
-                  scaleX: 0
-                }
-              );
-            }
-          });
-          */
         }
       });
     }
+  }
+
+  updateTimeline(nextIndex) {
+    if (this.current != undefined) {
+      const currentProgressEl = this.thumbnails[this.current].querySelector(
+        ".progress"
+      );
+      gsap.set(currentProgressEl, {
+        scaleX: 0
+      });
+      gsap.killTweensOf(currentProgressEl);
+    }
+
+    gsap.fromTo(
+      this.thumbnails[nextIndex].querySelector(".progress"),
+      this.autoplayDuration,
+      {
+        scaleX: 0
+      },
+      {
+        scaleX: 1,
+        ease: "linear",
+        onComplete: () => {
+          this.next();
+        }
+      }
+    );
   }
 
   render() {

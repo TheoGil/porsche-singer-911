@@ -11,7 +11,8 @@ window.setTimeout(() => {
     debug: true,
     uniforms: {},
     intensity: 0.1,
-    duration: 0.5,
+    transitionDuration: 0.5,
+    autoplayDuration: 8,
     ease: "power2.out",
     // NOTE: Currently only works if all images have the same aspect ratio.
     // Refer to the resize function within the Sketch class
