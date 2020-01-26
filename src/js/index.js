@@ -1,5 +1,5 @@
 import "../scss/index.scss";
-import Sketch from "./Sketch";
+import Slideshow from "./Slideshow";
 import fragment from "../shaders/fragment.glsl";
 
 window.setTimeout(() => {
@@ -7,7 +7,7 @@ window.setTimeout(() => {
     "https://tympanus.net/Development/webGLImageTransitions/index5.html"
   );
   console.log("Optimisation: optimise images");
-  new Sketch({
+  new Slideshow({
     debug: true,
     uniforms: {},
     intensity: 0.1,

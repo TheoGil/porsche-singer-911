@@ -9,13 +9,11 @@ import {
   PlaneGeometry,
   Mesh,
   Vector4,
-  Math as ThreeMath,
-  MeshBasicMaterial,
-  SphereGeometry
+  Math as ThreeMath
 } from "three";
 import gsap from "gsap";
 
-class Sketch {
+class Slideshow {
   constructor(options) {
     this.container = document.getElementById(options.containerId);
     this.thumbnails = document.querySelectorAll(`.${options.thumbnailsClass}`);
@@ -251,4 +249,4 @@ class Sketch {
   }
 }
 
-export default Sketch;
+export default Slideshow;
