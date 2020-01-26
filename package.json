@@ -34,6 +34,10 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "prettier": "^1.19.1"
+    "glslify-loader": "^2.0.0",
+    "gsap": "^3.0.4",
+    "prettier": "^1.19.1",
+    "raw-loader": "^4.0.0",
+    "three": "^0.112.1"
   }
 }

@@ -46,7 +46,12 @@
     </svg>
     <main class="wwrapper flex">
       <div class="main-visual-container">
-        <img class="main-visual" src="./public/main-visual.jpg" alt="" />
+        <canvas
+          id="slideshow"
+          class="slideshow"
+          style="display: block;"
+        ></canvas>
+        <!--<img class="main-visual" src="./public/main-visual.jpg" alt="" />-->
       </div>
       <div class="text-content-container">
         <div class="text-content-wrapper">
@@ -67,7 +72,7 @@
           <button class="button">Details</button>
 
           <div class="slideshow-controls">
-            <button class="arrow-button prev">
+            <button class="arrow-button prev js-prev">
               <svg
                 class="arrow-button-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +90,7 @@
                 />
               </svg></button
             ><!--
-            --><button class="arrow-button next">
+            --><button class="arrow-button next js-next">
               <svg
                 class="arrow-button-icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -108,19 +113,37 @@
 
         <ul class="thumbnails">
           <li class="thumbnail">
-            <div class="img-clip">
-              <img class="img" src="./public/thumb1.jpg" alt="" />
-            </div>
+            <button
+              class="js-thumbnail active thumbnail-button"
+              data-thumb-index="0"
+            >
+              <div class="thumbnail-progress-container">
+                <div class="progress"></div>
+              </div>
+              <div class="img-clip">
+                <img class="img" src="./public/thumb1.jpg" alt="" />
+              </div>
+            </button>
           </li>
           <li class="thumbnail">
-            <div class="img-clip">
-              <img class="img" src="./public/thumb2.jpg" alt="" />
-            </div>
+            <button class="js-thumbnail thumbnail-button" data-thumb-index="1">
+              <div class="thumbnail-progress-container">
+                <div class="progress"></div>
+              </div>
+              <div class="img-clip">
+                <img class="img" src="./public/thumb2.jpg" alt="" />
+              </div>
+            </button>
           </li>
           <li class="thumbnail">
-            <div class="img-clip">
-              <img class="img" src="./public/thumb3.jpg" alt="" />
-            </div>
+            <button class="js-thumbnail thumbnail-button" data-thumb-index="2">
+              <div class="thumbnail-progress-container">
+                <div class="progress"></div>
+              </div>
+              <div class="img-clip">
+                <img class="img" src="./public/thumb3.jpg" alt="" />
+              </div>
+            </button>
           </li>
         </ul>
 
