@@ -12,13 +12,16 @@
   padding: 0;
   cursor: pointer;
 
+  &:active {
+    transform: translateY(1px);
+  }
+
   &.prev {
     .active-arrow {
       transform: translateX(150%);
     }
 
-    &:hover,
-    &:focus {
+    &:hover {
       .active-arrow {
         transform: translateX(0);
       }
@@ -34,8 +37,7 @@
       transform: translateX(-150%);
     }
 
-    &:hover,
-    &:focus {
+    &:hover {
       .active-arrow {
         transform: translateX(0);
       }
