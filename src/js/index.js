@@ -1,5 +1,6 @@
 import "../scss/index.scss";
 import Slideshow from "./Slideshow";
+import Header from "./Header";
 import fragment from "../shaders/fragment.glsl";
 
 window.setTimeout(() => {
@@ -7,6 +8,7 @@ window.setTimeout(() => {
     "https://tympanus.net/Development/webGLImageTransitions/index5.html"
   );
   console.log("Optimisation: optimise images");
+
   new Slideshow({
     debug: true,
     uniforms: {},
@@ -27,4 +29,12 @@ window.setTimeout(() => {
     prevClass: "js-prev",
     fragment
   });
+
+  const header = new Header();
+  /*
+  header.animateIn().then(() => {
+    console.log("Animate in content");
+  });
+  */
 }, 500);
+console.log("https://codepen.io/theo-gil/pen/abzxmxr?editors=0010");

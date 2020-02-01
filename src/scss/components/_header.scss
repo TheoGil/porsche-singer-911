@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  display: flex;
+  align-items: center;
+  padding: 2.5rem 0 0 0;
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+}
+
+.header-button {
+  display: flex;
+  align-items: center;
+  border-width: 0;
+  padding: 0;
+  margin: 0 0.625rem;
+  background-color: transparent;
+  opacity: 0;
+  cursor: pointer;
+  color: $primary-color;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+
+  &:hover,
+  &:focus {
+    color: lighten($primary-color, 20);
+  }
+}
+
+.header-button-icon {
+  display: block;
+  fill: currentColor;
+  height: 1.25rem;
+  width: 2.188rem;
+  transition: all 250ms $easeOutCubic;
+}

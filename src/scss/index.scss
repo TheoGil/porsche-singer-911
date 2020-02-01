@@ -11,6 +11,8 @@
 @import "./components/thumbnails";
 @import "./components/slideshow.-controls";
 @import "./components/footer";
+@import "./components/header";
+@import "./components/logo";
 
 body {
   background-color: $body-bg-color;
@@ -29,6 +31,7 @@ body {
 
 .wwrapper {
   max-width: $wwrapper-width;
+  width: 100%;
   margin: auto;
 }
 

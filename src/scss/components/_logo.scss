@@ -1,0 +1,27 @@
+.logo {
+  margin: 0 auto 0 2rem;
+  display: flex;
+  align-items: flex-end;
+}
+
+.logo-svg {
+  width: 18.5rem;
+}
+
+.logo-porsche {
+  width: 12.25rem;
+  transform-origin: 0 0;
+}
+
+.logo-singer {
+  width: 7.188rem;
+  fill: $primary-color;
+  margin: 0 0 -25px -10px;
+  transform-origin: 0 0;
+}
+
+.singer-mask {
+  // Numbers retrieved using Vivus Instant
+  stroke-dasharray: 346 348;
+  stroke-dashoffset: 347;
+}
