@@ -37,11 +37,12 @@ https://css-tricks.com/easing-linear-gradients/
 
 .footer {
   position: relative;
-  min-height: 6.875rem;
   flex-grow: 1;
+  height: 0.625rem;
+  width: 100%;
   background-color: $primary-color;
   z-index: -1;
-  width: 50vw;
+  order: 0;
 
   &::before {
     opacity: 0.08;
@@ -52,5 +53,11 @@ https://css-tricks.com/easing-linear-gradients/
     left: 0;
     right: 0;
     @include scrimGradient($primary-color, "to top");
+  }
+
+  @include breakpoint($small) {
+    min-height: 6.875rem;
+    width: 50vw;
+    order: 3;
   }
 }

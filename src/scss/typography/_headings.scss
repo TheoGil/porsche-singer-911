@@ -9,9 +9,17 @@
     position: absolute;
     top: 0.688rem; // Compensate ascender
     bottom: 0.688rem; // Compensate descender
-    left: -2.375rem;
     width: 0.25rem;
     background-color: $primary-color;
+    left: -$gutter;
+
+    @include breakpoint($small) {
+      left: -2rem;
+    }
+
+    @include breakpoint($medium) {
+      left: -2.375rem;
+    }
   }
 }
 

@@ -1,0 +1,24 @@
+.content {
+  box-sizing: border-box;
+  color: $text-color;
+  display: flex;
+  flex-direction: column-reverse;
+  z-index: 1; // Create new stacking context
+
+  @include breakpoint($small) {
+    flex-direction: column;
+  }
+}
+
+.description {
+  padding: $gutter;
+  order: 1;
+
+  @include breakpoint($small) {
+    padding: 4rem 2rem 0 2rem;
+  }
+
+  @include breakpoint($medium) {
+    padding: 5rem 8.75rem 0 5.3125rem;
+  }
+}

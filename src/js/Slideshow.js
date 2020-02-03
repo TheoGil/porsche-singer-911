@@ -15,7 +15,9 @@ import gsap from "gsap";
 
 class Slideshow {
   constructor(options) {
-    this.container = document.getElementById(options.containerId);
+    this.containerId = options.containerId;
+    this.canvasId = options.canvasId;
+    this.container = document.getElementById(this.containerId);
     this.thumbnails = document.querySelectorAll(`.${options.thumbnailsClass}`);
     this.prevBtn = document.querySelector(`.${options.prevClass}`);
     this.nextBtn = document.querySelector(`.${options.nextClass}`);
@@ -57,7 +59,7 @@ class Slideshow {
 
   setupRenderer() {
     this.renderer = new WebGLRenderer({
-      canvas: document.getElementById("slideshow")
+      canvas: document.getElementById(this.canvasId)
     });
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(this.width, this.height);
@@ -127,8 +129,11 @@ class Slideshow {
   }
 
   resize() {
-    this.width = this.container.offsetWidth;
-    this.height = this.container.offsetHeight;
+    // this.container = document.getElementById(this.containerId);
+    this.width = this.container.getBoundingClientRect().width;
+    this.height = this.container.getBoundingClientRect().height;
+
+    console.log(this.height);
     this.renderer.setSize(this.width, this.height);
     this.camera.aspect = this.width / this.height;
 
@@ -170,7 +175,6 @@ class Slideshow {
     this.geometry = new PlaneGeometry(1, 1, 2, 2);
 
     this.plane = new Mesh(this.geometry, this.material);
-    // this.scene.add(this.plane);
   }
 
   addEventListeners() {

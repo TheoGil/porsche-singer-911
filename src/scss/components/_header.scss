@@ -1,11 +1,15 @@
 .header {
   display: flex;
-  display: flex;
+  padding: $gutter;
   align-items: center;
-  padding: 2.5rem 0 0 0;
   position: fixed;
   z-index: 10;
   width: 100%;
+  box-sizing: border-box;
+
+  @include breakpoint($large) {
+    padding: 2.5rem 0 0 0;
+  }
 }
 
 .header-button {

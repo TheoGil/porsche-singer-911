@@ -4,29 +4,36 @@
 // LOCAL
 @import "./abstract/variables";
 @import "./abstract/flex";
+@import "./abstract/breakpoint";
 @import "./abstract/font-faces";
 @import "./typography/headings";
 @import "./typography/text";
 @import "./components/buttons";
 @import "./components/thumbnails";
-@import "./components/slideshow.-controls";
+@import "./components/slideshow";
+@import "./components/slideshow-controls";
 @import "./components/footer";
 @import "./components/header";
 @import "./components/logo";
+@import "./components/content";
 
 body {
   background-color: $body-bg-color;
   font-family: Gilroy, sans-serif;
   overflow-x: hidden;
-  // @FIXME Gradient isn't smooth because start and stop values are very close.
-  // lead n°1 - make it a plain background, use a absolute positioned pseudo element, apply a white to black gradient, play with it's opacity and blend mode
-  // lead n°2 - use canvas
-  // lead n°3 - use image
   background: radial-gradient(
     circle at 50%,
     $main-bg-gradient-start,
     $main-bg-gradient-stop
   );
+}
+
+.main {
+  flex-direction: column;
+
+  @include breakpoint($small) {
+    flex-direction: row;
+  }
 }
 
 .wwrapper {
@@ -35,34 +42,10 @@ body {
   margin: auto;
 }
 
-.main-visual-container,
-.text-content-container {
-  width: 50%;
-}
-
-.main-visual {
-  max-width: 100%;
-  display: block;
-}
-
-.text-content-container {
-  box-sizing: border-box;
-  color: $text-color;
-  display: flex;
-  flex-direction: column;
-  z-index: 1; // Create new stacking context
-}
-
-.text-content-wrapper {
-  padding: 5rem 8.75rem 0 5.3125rem;
-}
-
-.slideshow {
-  height: 100%;
+.column {
   width: 100%;
 
-  canvas {
-    width: 100%;
-    height: 100%;
+  @include breakpoint($small) {
+    width: 50%;
   }
 }

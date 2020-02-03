@@ -1,8 +1,13 @@
 .slideshow-controls {
+  display: none;
   margin: 2.938rem 0;
 
   .arrow-button:nth-child(2) {
     margin-left: 2.688rem;
+  }
+
+  @include breakpoint($small) {
+    display: block;
   }
 }
 

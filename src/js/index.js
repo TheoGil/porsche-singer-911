@@ -8,7 +8,6 @@ window.setTimeout(() => {
     "https://tympanus.net/Development/webGLImageTransitions/index5.html"
   );
   console.log("Optimisation: optimise images");
-
   new Slideshow({
     debug: true,
     uniforms: {},
@@ -23,13 +22,13 @@ window.setTimeout(() => {
       "/public/slides/2.jpg",
       "/public/slides/3.jpg"
     ],
-    containerId: "slideshow",
+    containerId: "js-slideshow-container",
+    canvasId: "slideshow",
     thumbnailsClass: "js-thumbnail",
     nextClass: "js-next",
     prevClass: "js-prev",
     fragment
   });
-
   const header = new Header();
   /*
   header.animateIn().then(() => {

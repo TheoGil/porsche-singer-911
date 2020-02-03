@@ -1,7 +1,17 @@
 .logo {
-  margin: 0 auto 0 2rem;
+  margin: 0 auto 0 0;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: center;
+
+  @include breakpoint($medium) {
+    align-items: flex-end;
+    flex-direction: row;
+  }
+
+  @include breakpoint($large) {
+    margin: 0 auto 0 2rem;
+  }
 }
 
 .logo-svg {
@@ -9,15 +19,26 @@
 }
 
 .logo-porsche {
-  width: 12.25rem;
+  width: 10rem;
   transform-origin: 0 0;
+  z-index: 1;
+
+  @include breakpoint($small) {
+    width: 12.25rem;
+  }
 }
 
 .logo-singer {
-  width: 7.188rem;
+  width: 8rem;
   fill: $primary-color;
-  margin: 0 0 -25px -10px;
   transform-origin: 0 0;
+  margin: -0.75rem 0 -0.75rem -0.5rem;
+  z-index: 0; // Render behind porsche logo
+
+  @include breakpoint($small) {
+    width: 7.188rem;
+    margin: 0 0 -25px -10px;
+  }
 }
 
 .singer-mask {

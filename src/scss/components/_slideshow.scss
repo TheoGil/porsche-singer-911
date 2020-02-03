@@ -1,0 +1,14 @@
+.slideshow-container {
+  position: relative;
+  height: 70vh;
+
+  @include breakpoint($small) {
+    height: initial;
+  }
+}
+
+.slideshow {
+  position: absolute;
+  top: 0;
+  height: 0;
+}
