@@ -206,6 +206,8 @@ class Slideshow {
   }
 
   goTo(index) {
+    console.log(index);
+
     index = parseInt(index);
 
     if (index != this.current) {
@@ -244,6 +246,7 @@ class Slideshow {
       gsap.killTweensOf(currentProgressEl);
     }
 
+    /*
     gsap.fromTo(
       this.thumbnails[nextIndex].querySelector(".progress"),
       this.autoplayDuration,
@@ -258,6 +261,7 @@ class Slideshow {
         }
       }
     );
+    */
   }
 
   render() {
