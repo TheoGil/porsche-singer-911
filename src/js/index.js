@@ -125,7 +125,7 @@ window.setTimeout(() => {
         duration: 0.5,
         scaleX: 1,
         onComplete: () => {
-          tweenCSSVar("--gradient-opacity", target, 0.5, 0, 0.08);
+          tweenCSSVar("--gradient-opacity", footerEl, 0.5, 0, 0.08);
         }
       },
       `-=${curtainsAnimationOffset}`

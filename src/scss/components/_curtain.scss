@@ -1,0 +1,18 @@
+.has-curtain {
+  position: relative;
+  overflow: hidden;
+  --curtain-scale-x: 0;
+  --curtain-transform-origin: 0% 50%;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 102%; // Slightly larger than parent to avoid glitchy transform artifact
+    height: 100%;
+    transform: scale(var(--curtain-scale-x, 0), 1.1);
+    transform-origin: var(--curtain-transform-origin, 100% 50%);
+    background-color: $primary-color;
+  }
+}

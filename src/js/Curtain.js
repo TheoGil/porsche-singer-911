@@ -36,7 +36,7 @@ class Curtain {
   }
 
   switchTransformOrigin() {
-    this.el.style.setProperty(transformOriginVariableName, "100% 0%");
+    this.el.style.setProperty(transformOriginVariableName, "100% 50%");
   }
 
   displayHiddenEls() {
