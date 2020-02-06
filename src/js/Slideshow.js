@@ -12,6 +12,7 @@ import {
   Math as ThreeMath
 } from "three";
 import gsap from "gsap";
+import tweenCSSVar from "./utility/tweenCSSVar";
 
 class Slideshow {
   constructor(options) {
@@ -214,7 +215,6 @@ class Slideshow {
           thumbnail.classList.remove("active");
         }
       });
-      console.log(this.thumbnails[index]);
       this.thumbnails[index].classList.add("active");
 
       gsap.to(this.material.uniforms.progress, this.duration, {
@@ -237,28 +237,34 @@ class Slideshow {
       const currentProgressEl = this.thumbnails[this.current].querySelector(
         ".progress"
       );
+      /*
       gsap.set(currentProgressEl, {
         scaleX: 0
       });
+      */
       gsap.killTweensOf(currentProgressEl);
     }
 
-    /*
+    const progress = { value: 0 };
     gsap.fromTo(
-      this.thumbnails[nextIndex].querySelector(".progress"),
+      progress,
       this.autoplayDuration,
       {
-        scaleX: 0
+        value: 0
       },
       {
-        scaleX: 1,
+        value: 1,
         ease: "linear",
+        onUpdate: () => {
+          this.thumbnails[nextIndex]
+            .querySelector(".progress")
+            .style.setProperty("--progress", progress.value);
+        },
         onComplete: () => {
           this.next();
         }
       }
     );
-    */
   }
 
   render() {

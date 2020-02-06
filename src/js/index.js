@@ -5,6 +5,7 @@ import gsap from "gsap";
 import Curtain from "./Curtain";
 import Slideshow from "./Slideshow";
 import Header from "./Header";
+import tweenCSSVar from "./utility/tweenCSSVar";
 import fragment from "../shaders/fragment.glsl";
 
 function cancelTween(target) {
@@ -30,20 +31,6 @@ function curtainAnimation(target) {
   }
 
   curtains[target.dataset.curtainId].reveal();
-}
-
-function tweenCSSVar(varName, el, duration, from, to) {
-  const variable = {
-    value: from
-  };
-
-  gsap.to(variable, {
-    value: to,
-    duration: duration,
-    onUpdate: () => {
-      el.style.setProperty(varName, variable.value);
-    }
-  });
 }
 
 const TL = gsap.timeline();
