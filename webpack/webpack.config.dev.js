@@ -2,6 +2,7 @@ const Path = require("path");
 const Webpack = require("webpack");
 const merge = require("webpack-merge");
 const common = require("./webpack.common.js");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = merge(common, {
   mode: "development",
@@ -15,6 +16,9 @@ module.exports = merge(common, {
   plugins: [
     new Webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("development")
+    }),
+    new MiniCssExtractPlugin({
+      filename: "bundle.css"
     })
   ],
   module: {
@@ -35,7 +39,7 @@ module.exports = merge(common, {
       },
       {
         test: /\.s?css$/i,
-        use: ["style-loader", "css-loader?sourceMap=true", "sass-loader"]
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
       }
     ]
   }
