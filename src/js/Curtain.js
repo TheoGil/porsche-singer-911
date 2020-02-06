@@ -18,7 +18,6 @@ class Curtain {
       this.el.getAttribute("data-curtain-duration") ||
       defaultDuration;
     this.curtainScaleInCallbacks = [];
-    this.TL = options.timeline;
     this.setup();
   }
 

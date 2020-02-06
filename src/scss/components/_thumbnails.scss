@@ -82,6 +82,7 @@
 }
 
 .thumbnail-progress-container {
+  opacity: 0 !important;
   position: absolute;
   z-index: 1;
   top: 0;
@@ -90,7 +91,7 @@
   height: 0.25rem;
   background-color: $thumbnail-progress-background;
   transform: scaleY(0);
-  transform-origin: 0 100%;
+  transform-origin: 0 0;
   transition: transform 250ms $easeOutCubic;
 
   .progress {

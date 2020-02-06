@@ -214,6 +214,7 @@ class Slideshow {
           thumbnail.classList.remove("active");
         }
       });
+      console.log(this.thumbnails[index]);
       this.thumbnails[index].classList.add("active");
 
       gsap.to(this.material.uniforms.progress, this.duration, {

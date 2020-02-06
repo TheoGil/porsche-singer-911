@@ -44,9 +44,9 @@ https://css-tricks.com/easing-linear-gradients/
   z-index: -1;
   order: 0;
   transform-origin: 0% 100%;
+  --gradient-opacity: 0;
 
   &::before {
-    opacity: 0.08;
     content: "";
     position: absolute;
     top: -300px;
@@ -54,6 +54,7 @@ https://css-tricks.com/easing-linear-gradients/
     left: 0;
     right: 0;
     @include scrimGradient($primary-color, "to top");
+    opacity: var(--gradient-opacity, 0);
   }
 
   @include breakpoint($small) {

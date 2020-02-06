@@ -7,21 +7,65 @@ import Slideshow from "./Slideshow";
 import Header from "./Header";
 import fragment from "../shaders/fragment.glsl";
 
+function cancelTween(target) {
+  gsap.killTweensOf(target, "opacity,y");
+  target.setAttribute("style", null);
+}
+
+function curtainAnimation(target) {
+  // Animate in default thumbnail drop-shadow
+  if (target.classList.contains("js-shadow")) {
+    const parent = target.closest("li");
+    curtains[target.dataset.curtainId].addCurtainScaleInCallback(() => {
+      tweenCSSVar("--shadow-opacity", parent, 0.5, 0, 1);
+    });
+  }
+
+  // Animate in ACTIVE thumbnail drop-shadow
+  if (target.classList.contains("active")) {
+    target.setAttribute("style", "--shadow-opacity: 0;");
+    curtains[target.dataset.curtainId].addCurtainScaleInCallback(() => {
+      tweenCSSVar("--shadow-opacity", target, 0.5, 0, 1);
+    });
+  }
+
+  curtains[target.dataset.curtainId].reveal();
+}
+
+function tweenCSSVar(varName, el, duration, from, to) {
+  const variable = {
+    value: from
+  };
+
+  gsap.to(variable, {
+    value: to,
+    duration: duration,
+    onUpdate: () => {
+      el.style.setProperty(varName, variable.value);
+    }
+  });
+}
+
 const TL = gsap.timeline();
 const staggerEls = document.querySelectorAll(".js-stagger");
 const curtainEls = document.querySelectorAll(".js-curtain");
+const footerEl = document.querySelector(".js-footer");
 const curtains = {};
 curtainEls.forEach((el, i) => {
-  curtains[i] = new Curtain({ el, timeline: TL, id: i, duration: 0.3 });
+  curtains[i] = new Curtain({ el, id: i, duration: 0.5 });
   el.dataset.curtainId = i;
 });
 
-// HIDE EVERYTHING
+// HIDE EVERYTHING SO WE CAN ANIMATE THEM IN
 gsap.set(staggerEls, {
   opacity: 0,
   y: 20
 });
+gsap.set(footerEl, {
+  scaleX: 0
+});
 
+// WRAP OUR INIT WITHIN STO BECAUSE FOUC MESS UP OUR CALCULATIONS
 window.setTimeout(() => {
   const slideshow = new Slideshow({
     debug: true,
@@ -46,61 +90,45 @@ window.setTimeout(() => {
   });
   const header = new Header();
   header.animateIn().then(() => {
-    TL.to([...staggerEls, ...curtainEls], {
+    // Animate in "basic stuff"
+    TL.to(staggerEls, {
       opacity: 1,
       y: 0,
-      duration: 0.3,
+      duration: 0.5,
       stagger: {
-        amount: 1,
-        onStart: function() {
-          const tween = this;
-          const target = tween._targets[0];
-          if (target.classList.contains("js-curtain")) {
-            gsap.set(staggerEls, {
-              opacity: 1,
-              y: 0
-            });
-            curtains[target.dataset.curtainId].reveal();
-            /*
-            if (curtain.el.classList.contains("js-shadow")) {
-              const parent = curtain.el.closest("li");
-              if (parent.classList.contains("thumbnail-list-item")) {
-                curtain.addCurtainScaleInCallback(() => {
-                  animateInDropShadow(parent, 1);
-                });
-              }
-            }
-
-            if (curtain.el.classList.contains("active")) {
-              curtain.addCurtainScaleInCallback(() => {
-                animateInDropShadow(curtain.el, 1);
-              });
-            }
-            */
-          }
-        }
+        amount: 1
       }
     });
 
-    function animateInDropShadow(el, duration) {
-      const opacity = {
-        value: 0
-      };
-
-      gsap.to(opacity, {
-        value: 1,
-        duration: duration,
-        onUpdate: () => {
-          el.style.setProperty("--shadow-opacity", opacity.value);
+    // Animate slideshow and thumbnails
+    const curtainsAnimationOffset = 0.5;
+    TL.to(
+      curtainEls,
+      {
+        stagger: {
+          y: 0,
+          amount: 1,
+          onStart: function() {
+            const target = this._targets[0];
+            cancelTween(target, "opacity,y");
+            curtainAnimation(target);
+          }
         }
-      });
-    }
+      },
+      `-=${curtainsAnimationOffset}`
+    );
 
-    function animateInFooter() {
-      TL.to(document.querySelector(".footer"), {
+    // Animate footer
+    TL.to(
+      footerEl,
+      {
         duration: 0.5,
-        scaleX: 1
-      });
-    }
+        scaleX: 1,
+        onComplete: () => {
+          tweenCSSVar("--gradient-opacity", target, 0.5, 0, 0.08);
+        }
+      },
+      `-=${curtainsAnimationOffset}`
+    );
   });
 }, 100);
