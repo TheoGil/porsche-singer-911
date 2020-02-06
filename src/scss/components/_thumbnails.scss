@@ -75,10 +75,6 @@
       transform: scale(1.05, 1.05);
     }
   }
-
-  &:active {
-    transform: translateY(-8px);
-  }
 }
 
 .thumbnail-progress-container {
