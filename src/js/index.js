@@ -1,41 +1,28 @@
 import "../scss/index.scss";
+
+import gsap from "gsap";
+
+import Curtain from "./Curtain";
 import Slideshow from "./Slideshow";
 import Header from "./Header";
 import fragment from "../shaders/fragment.glsl";
-import gsap from "gsap";
 
-const staggerEl = document.querySelectorAll(".js-stagger");
-
-// TEMP
-gsap.set(
-  [document.getElementById("slideshow"), document.querySelector(".footer")],
-  {
-    opacity: 0
-  }
-);
-
-document.querySelectorAll(".js-thumbnail").forEach(el => {
-  gsap.set(el.querySelectorAll(".curtain"), {
-    scaleX: 0
-  });
-  gsap.set(el.querySelectorAll(".img"), {
-    opacity: 0
-  });
-  gsap.set(el.querySelector(".thumbnail-progress-container"), {
-    opacity: 0
-  });
-  gsap.set(el.querySelector(".thumbnail-progress-container"), {
-    opacity: 0
-  });
+const TL = gsap.timeline();
+const staggerEls = document.querySelectorAll(".js-stagger");
+const curtainEls = document.querySelectorAll(".js-curtain");
+const curtains = {};
+curtainEls.forEach((el, i) => {
+  curtains[i] = new Curtain({ el, timeline: TL, id: i, duration: 0.3 });
+  el.dataset.curtainId = i;
 });
-// TEMP
+
+// HIDE EVERYTHING
+gsap.set(staggerEls, {
+  opacity: 0,
+  y: 20
+});
 
 window.setTimeout(() => {
-  gsap.set(staggerEl, {
-    opacity: 0,
-    y: 20
-  });
-
   const slideshow = new Slideshow({
     debug: true,
     uniforms: {},
@@ -58,51 +45,44 @@ window.setTimeout(() => {
     fragment
   });
   const header = new Header();
-  const TL = gsap.timeline();
   header.animateIn().then(() => {
-    TL.to(staggerEl, {
+    TL.to([...staggerEls, ...curtainEls], {
       opacity: 1,
       y: 0,
       duration: 0.3,
-      stagger: 0.1
+      stagger: {
+        amount: 1,
+        onStart: function() {
+          const tween = this;
+          const target = tween._targets[0];
+          if (target.classList.contains("js-curtain")) {
+            gsap.set(staggerEls, {
+              opacity: 1,
+              y: 0
+            });
+            curtains[target.dataset.curtainId].reveal();
+            /*
+            if (curtain.el.classList.contains("js-shadow")) {
+              const parent = curtain.el.closest("li");
+              if (parent.classList.contains("thumbnail-list-item")) {
+                curtain.addCurtainScaleInCallback(() => {
+                  animateInDropShadow(parent, 1);
+                });
+              }
+            }
+
+            if (curtain.el.classList.contains("active")) {
+              curtain.addCurtainScaleInCallback(() => {
+                animateInDropShadow(curtain.el, 1);
+              });
+            }
+            */
+          }
+        }
+      }
     });
 
-    function animateInCurtain(thumbnailEl, duration, stagger) {
-      return new Promise(resolve => {
-        const curtainEl = thumbnailEl.querySelector(".js-curtain");
-        const offset = `-=${duration - stagger}`;
-        TL.to(
-          curtainEl,
-          {
-            duration,
-            scaleX: 1,
-            onCompleteParams: [thumbnailEl],
-            onComplete: resolve
-          },
-          offset
-        );
-      });
-    }
-
-    function animateOutCurtain(thumbnailEl, duration, stagger) {
-      const curtainEl = thumbnailEl.querySelector(".js-curtain");
-      const offset = `-=${duration - stagger}`;
-
-      gsap.set(curtainEl, {
-        transformOrigin: "100% 100%"
-      });
-
-      TL.to(
-        curtainEl,
-        {
-          scaleX: 0,
-          duration: 0.3
-        },
-        offset
-      );
-    }
-
-    function animateInDropShadow(thumbnailEl, duration) {
+    function animateInDropShadow(el, duration) {
       const opacity = {
         value: 0
       };
@@ -111,50 +91,16 @@ window.setTimeout(() => {
         value: 1,
         duration: duration,
         onUpdate: () => {
-          thumbnailEl.style.setProperty("--shadow-opacity", opacity.value);
+          el.style.setProperty("--shadow-opacity", opacity.value);
         }
       });
-
-      const thumbnailBtn = thumbnailEl.querySelector(".thumbnail-button");
-      if (thumbnailBtn.classList.contains("active")) {
-        const activeOpacity = {
-          value: 0
-        };
-
-        gsap.to(activeOpacity, {
-          value: 1,
-          duration: duration,
-          onUpdate: () => {
-            thumbnailBtn.style.setProperty(
-              "--shadow-opacity",
-              activeOpacity.value
-            );
-          },
-          onComplete: () => {
-            thumbnailBtn.setAttribute("style", null);
-          }
-        });
-      }
     }
 
-    document.querySelectorAll(".thumbnail").forEach(el => {
-      const duration = 0.3;
-      const stagger = 0.1;
-      animateInCurtain(el, duration, stagger).then(thumbnailEl => {
-        animateInDropShadow(thumbnailEl, 1);
-
-        gsap.set(
-          [
-            thumbnailEl.querySelector(".js-img"),
-            thumbnailEl.querySelector(".js-thumbnail-progress-container")
-          ],
-          {
-            opacity: 1
-          }
-        );
-
-        animateOutCurtain(thumbnailEl, duration, stagger);
+    function animateInFooter() {
+      TL.to(document.querySelector(".footer"), {
+        duration: 0.5,
+        scaleX: 1
       });
-    });
+    }
   });
 }, 100);

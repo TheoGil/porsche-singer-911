@@ -129,11 +129,9 @@ class Slideshow {
   }
 
   resize() {
-    // this.container = document.getElementById(this.containerId);
     this.width = this.container.getBoundingClientRect().width;
     this.height = this.container.getBoundingClientRect().height;
 
-    console.log(this.height);
     this.renderer.setSize(this.width, this.height);
     this.camera.aspect = this.width / this.height;
 
@@ -206,8 +204,6 @@ class Slideshow {
   }
 
   goTo(index) {
-    console.log(index);
-
     index = parseInt(index);
 
     if (index != this.current) {

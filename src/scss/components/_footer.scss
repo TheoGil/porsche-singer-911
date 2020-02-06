@@ -43,6 +43,7 @@ https://css-tricks.com/easing-linear-gradients/
   background-color: $primary-color;
   z-index: -1;
   order: 0;
+  transform-origin: 0% 100%;
 
   &::before {
     opacity: 0.08;

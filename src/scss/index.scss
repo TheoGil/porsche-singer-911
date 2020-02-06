@@ -17,6 +17,24 @@
 @import "./components/logo";
 @import "./components/content";
 
+.has-curtain {
+  position: relative;
+  --curtain-scale-x: 0;
+  --curtain-transform-origin: 0% 0%;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: scaleX(var(--curtain-scale-x, 0));
+    transform-origin: var(--curtain-transform-origin, 100% 0%);
+    background-color: $primary-color;
+  }
+}
+
 body {
   // background-color: $body-bg-color;
   font-family: Gilroy, sans-serif;
