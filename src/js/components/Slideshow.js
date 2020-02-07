@@ -12,7 +12,7 @@ import {
   Math as ThreeMath
 } from "three";
 import gsap from "gsap";
-import tweenCSSVar from "./utility/tweenCSSVar";
+import tweenCSSVar from "../utility/tweenCSSVar";
 
 class Slideshow {
   constructor(options) {

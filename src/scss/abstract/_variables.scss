@@ -6,6 +6,12 @@ $gutter: 25px;
 $large: 1200px;
 $medium: 1000px;
 $small: 800px;
+// Allow easy JS access
+:root {
+  --bp-large: $large;
+  --bp-medium: $medium;
+  --bp-small: $small;
+}
 
 // Easings
 $easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);

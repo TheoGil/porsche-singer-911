@@ -2,55 +2,9 @@ import "../scss/index.scss";
 
 import gsap from "gsap";
 
-import Curtain from "./Curtain";
-import Slideshow from "./Slideshow";
-import Header from "./Header";
-import tweenCSSVar from "./utility/tweenCSSVar";
+import Slideshow from "./components/Slideshow";
+import Intro from "./components/Intro";
 import fragment from "../shaders/fragment.glsl";
-
-function cancelTween(target) {
-  gsap.killTweensOf(target, "opacity,y");
-  target.setAttribute("style", null);
-}
-
-function curtainAnimation(target) {
-  // Animate in default thumbnail drop-shadow
-  if (target.classList.contains("js-shadow")) {
-    const parent = target.closest("li");
-    curtains[target.dataset.curtainId].addCurtainScaleInCallback(() => {
-      tweenCSSVar("--shadow-opacity", parent, 0.5, 0, 1);
-    });
-  }
-
-  // Animate in ACTIVE thumbnail drop-shadow
-  if (target.classList.contains("active")) {
-    target.setAttribute("style", "--shadow-opacity: 0;");
-    curtains[target.dataset.curtainId].addCurtainScaleInCallback(() => {
-      tweenCSSVar("--shadow-opacity", target, 0.5, 0, 1);
-    });
-  }
-
-  curtains[target.dataset.curtainId].reveal();
-}
-
-const TL = gsap.timeline();
-const staggerEls = document.querySelectorAll(".js-stagger");
-const curtainEls = document.querySelectorAll(".js-curtain");
-const footerEl = document.querySelector(".js-footer");
-const curtains = {};
-curtainEls.forEach((el, i) => {
-  curtains[i] = new Curtain({ el, id: i, duration: 0.5 });
-  el.dataset.curtainId = i;
-});
-
-// HIDE EVERYTHING SO WE CAN ANIMATE THEM IN
-gsap.set(staggerEls, {
-  opacity: 0,
-  y: 20
-});
-gsap.set(footerEl, {
-  scaleX: 0
-});
 
 const slideshow = new Slideshow({
   debug: true,
@@ -73,46 +27,6 @@ const slideshow = new Slideshow({
   prevClass: "js-prev",
   fragment
 });
-const header = new Header();
-header.animateIn().then(() => {
-  // Animate in "basic stuff"
-  TL.to(staggerEls, {
-    opacity: 1,
-    y: 0,
-    duration: 0.5,
-    stagger: {
-      amount: 1
-    }
-  });
 
-  // Animate slideshow and thumbnails
-  const curtainsAnimationOffset = 0.5;
-  TL.to(
-    curtainEls,
-    {
-      stagger: {
-        y: 0,
-        amount: 1,
-        onStart: function() {
-          const target = this._targets[0];
-          cancelTween(target, "opacity,y");
-          curtainAnimation(target);
-        }
-      }
-    },
-    `-=${curtainsAnimationOffset}`
-  );
-
-  // Animate footer
-  TL.to(
-    footerEl,
-    {
-      duration: 0.5,
-      scaleX: 1,
-      onComplete: () => {
-        tweenCSSVar("--gradient-opacity", footerEl, 0.5, 0, 0.08);
-      }
-    },
-    `-=${curtainsAnimationOffset}`
-  );
-});
+const intro = new Intro({});
+intro.animateIn();
