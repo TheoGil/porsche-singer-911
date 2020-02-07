@@ -8,9 +8,9 @@ $medium: 1000px;
 $small: 800px;
 // Allow easy JS access
 :root {
-  --bp-large: $large;
-  --bp-medium: $medium;
-  --bp-small: $small;
+  --bp-large: #{$large};
+  --bp-medium: #{$medium};
+  --bp-small: #{$small};
 }
 
 // Easings

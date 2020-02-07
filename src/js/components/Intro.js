@@ -40,15 +40,17 @@ class Intro {
     });
   }
 
-  animateStaggers() {
-    this.TL.to(this.staggerEls, {
-      opacity: 1,
-      y: 0,
-      duration: 0.5,
-      stagger: {
-        amount: 1
-      }
-    });
+  animateStaggers(collection, offset) {
+    this.TL.to(
+      collection,
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        stagger: 0.1
+      },
+      offset
+    );
   }
 
   animateCurtains() {
@@ -59,6 +61,20 @@ class Intro {
           y: 0,
           amount: 1,
           onStart: this.onStartCurtainTween
+        }
+      },
+      `-=${this.curtainsAnimationOffset}`
+    );
+  }
+
+  animateFooter() {
+    this.TL.to(
+      this.footerEl,
+      {
+        duration: 0.5,
+        scaleX: 1,
+        onComplete: () => {
+          tweenCSSVar("--gradient-opacity", this.footerEl, 0.5, 0, 0.08);
         }
       },
       `-=${this.curtainsAnimationOffset}`
@@ -103,26 +119,35 @@ class Intro {
 
   animateInLargeScreen() {
     // Animate in "basic stuff"
-    this.animateStaggers();
+    this.animateStaggers(this.staggerEls);
 
     // Animate slideshow and thumbnails
     this.animateCurtains();
 
     // Animate footer
-    this.TL.to(
-      this.footerEl,
-      {
-        duration: 0.5,
-        scaleX: 1,
-        onComplete: () => {
-          tweenCSSVar("--gradient-opacity", this.footerEl, 0.5, 0, 0.08);
-        }
-      },
-      `-=${this.curtainsAnimationOffset}`
-    );
+    this.animateFooter();
   }
 
-  animateInSmallScreen() {}
+  animateInSmallScreen() {
+    // Remove header's buttons from staggerEls
+    const headerButtons = [];
+    const elsToStagger = Array.from(this.staggerEls);
+    // the following won't work in the buttons aren't the first two entry of array
+    headerButtons.push(elsToStagger.shift());
+    headerButtons.push(elsToStagger.shift());
+
+    // Animate in buttons
+    this.animateStaggers(headerButtons);
+
+    // Animate in slideshow and thumbnails
+    this.animateCurtains();
+
+    // Animate in content
+    this.animateStaggers(elsToStagger);
+
+    // Animate in footer
+    this.animateFooter();
+  }
 }
 
 export default Intro;
