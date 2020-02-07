@@ -1,12 +1,13 @@
 import "../scss/index.scss";
 
-import gsap from "gsap";
-
+import Grain from "./components/Grain";
 import Slideshow from "./components/Slideshow";
 import Intro from "./components/Intro";
-import fragment from "../shaders/fragment.glsl";
+import fragment from "../shaders/slideshow/fragment.glsl";
 
-const slideshow = new Slideshow({
+new Grain();
+
+new Slideshow({
   debug: true,
   uniforms: {},
   intensity: 0.1,

@@ -5,14 +5,12 @@ import {
   Scene,
   PerspectiveCamera,
   LoadingManager,
-  DoubleSide,
   PlaneGeometry,
   Mesh,
   Vector4,
   Math as ThreeMath
 } from "three";
 import gsap from "gsap";
-import tweenCSSVar from "../utility/tweenCSSVar";
 
 class Slideshow {
   constructor(options) {
@@ -86,7 +84,6 @@ class Slideshow {
       extensions: {
         derivatives: "#extension GL_OES_standard_derivatives : enable"
       },
-      side: DoubleSide,
       uniforms: {
         progress: { type: "f", value: 0 },
         intensity: { type: "f", value: this.intensity },
@@ -237,11 +234,6 @@ class Slideshow {
       const currentProgressEl = this.thumbnails[this.current].querySelector(
         ".progress"
       );
-      /*
-      gsap.set(currentProgressEl, {
-        scaleX: 0
-      });
-      */
       gsap.killTweensOf(currentProgressEl);
     }
 
