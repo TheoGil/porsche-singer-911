@@ -25,6 +25,9 @@ class Slideshow {
     this.images = options.images;
     this.tl = gsap.timeline();
     this.ease = options.ease;
+    this.autoplayProgress = {
+      value: 0
+    };
 
     // ThreeJS stuff
     this.textures = [];
@@ -230,16 +233,17 @@ class Slideshow {
   }
 
   updateTimeline(nextIndex) {
+    gsap.killTweensOf(this.autoplayProgress);
+
     if (this.current != undefined) {
       const currentProgressEl = this.thumbnails[this.current].querySelector(
         ".progress"
       );
-      gsap.killTweensOf(currentProgressEl);
+      currentProgressEl.style.setProperty("--progress", 0);
     }
 
-    const progress = { value: 0 };
     gsap.fromTo(
-      progress,
+      this.autoplayProgress,
       this.autoplayDuration,
       {
         value: 0
@@ -250,7 +254,7 @@ class Slideshow {
         onUpdate: () => {
           this.thumbnails[nextIndex]
             .querySelector(".progress")
-            .style.setProperty("--progress", progress.value);
+            .style.setProperty("--progress", this.autoplayProgress.value);
         },
         onComplete: () => {
           this.next();
