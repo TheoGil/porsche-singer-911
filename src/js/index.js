@@ -7,6 +7,7 @@ import fragment from "../shaders/slideshow/fragment.glsl";
 
 new Grain();
 
+/*
 new Slideshow({
   debug: true,
   uniforms: {},
@@ -28,6 +29,6 @@ new Slideshow({
   prevClass: "js-prev",
   fragment
 });
-
+*/
 const intro = new Intro({});
 intro.animateIn();

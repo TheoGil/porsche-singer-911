@@ -21,8 +21,4 @@ void main()	{
     vec4 t1 = texture2D(texture1, vec2(newUV.x, newUV.y + progress * (displace2 * intensity)));
     vec4 t2 = texture2D(texture2, vec2(newUV.x, newUV.y + (1.0 - progress) * (displace1 * intensity)));
     gl_FragColor = mix(t1, t2, progress);
-    /*
-    vec3 color = texture2D(texture1, vUv).rgb;
-    gl_FragColor = vec4(color, 1.0);
-    */
 }
