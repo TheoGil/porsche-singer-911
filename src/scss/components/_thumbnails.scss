@@ -66,7 +66,7 @@
     transform: translateY(-0.625rem);
 
     .progress {
-      transform: scaleY(1);
+      transform: scaleY(1) scaleZ(0.01) translateY(-1px); // scaleZ prevent scaling glitch on chrome;
     }
 
     --shadow-opacity: 1;
@@ -85,7 +85,7 @@
   right: 0;
   height: 0.25rem;
   background-color: $thumbnail-progress-background;
-  transform: scaleY(0);
+  transform: scaleY(0) scaleZ(0.01); // scaleZ prevent scaling glitch on chrome
   transform-origin: 0 0;
   transition: transform 250ms $easeOutCubic;
   overflow: hidden;
@@ -97,10 +97,7 @@
     display: block;
     width: 100%;
     height: 100%;
-    transform: scale(
-      var(--progress, 0),
-      1.1
-    ); // Slightly higher than parent to avoid transform artifacts
+    transform: scaleX(var(--progress, 0)) scaleZ(0.01); // scaleZ prevent scaling glitch on chrome;
     transform-origin: 0% 50%;
   }
 }

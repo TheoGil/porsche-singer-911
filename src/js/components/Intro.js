@@ -94,10 +94,11 @@ class Intro {
     }
 
     // Animate in ACTIVE thumbnail drop-shadow
-    if (target.classList.contains("active")) {
-      target.setAttribute("style", "--shadow-opacity: 0;");
+    const thumbnail = target.closest(".thumbnail");
+    if (thumbnail && thumbnail.classList.contains("active")) {
+      thumbnail.setAttribute("style", "--shadow-opacity: 0;");
       target._curtain.addCurtainScaleInCallback(() => {
-        tweenCSSVar("--shadow-opacity", target, 0.5, 0, 1);
+        tweenCSSVar("--shadow-opacity", thumbnail, 0.5, 0, 1);
       });
     }
 
