@@ -3,7 +3,7 @@ import gsap from "gsap";
 const hiddenElsClassName = ".js-hidden";
 const scaleVariableName = "--curtain-scale-x";
 const transformOriginVariableName = "--curtain-transform-origin";
-const defaultDuration = 0.5;
+const defaultDuration = 1;
 
 class Curtain {
   constructor(options) {
@@ -11,7 +11,7 @@ class Curtain {
     this.el = options.el;
     this.hiddenEls = this.el.querySelectorAll(hiddenElsClassName);
     this.scale = {
-      x: 0
+      y: 0
     };
     this.duration =
       options.duration ||
@@ -36,7 +36,7 @@ class Curtain {
   }
 
   switchTransformOrigin() {
-    this.el.style.setProperty(transformOriginVariableName, "100% 50%");
+    this.el.style.setProperty(transformOriginVariableName, "50% 0%");
   }
 
   displayHiddenEls() {
@@ -49,7 +49,7 @@ class Curtain {
     gsap.to(this.scale, {
       keyframes: [
         {
-          x: 1,
+          y: 1,
           duration: this.duration,
           onComplete: () => {
             this.applyCallbacks();
@@ -59,14 +59,13 @@ class Curtain {
           delay: delay
         },
         {
-          x: 0,
+          y: 0,
           duration: this.duration
-          // onComplete: resolve,
         }
       ],
       delay,
       onUpdate: () => {
-        this.el.style.setProperty(scaleVariableName, this.scale.x);
+        this.el.style.setProperty(scaleVariableName, this.scale.y);
       }
     });
   }

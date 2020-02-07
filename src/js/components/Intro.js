@@ -58,8 +58,7 @@ class Intro {
       this.curtainEls,
       {
         stagger: {
-          y: 0,
-          amount: 1,
+          amount: 0.5,
           onStart: this.onStartCurtainTween
         }
       },

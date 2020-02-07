@@ -230,8 +230,6 @@ class Slideshow {
   }
 
   updateTimeline(nextIndex) {
-    return;
-
     if (this.current != undefined) {
       const currentProgressEl = this.thumbnails[this.current].querySelector(
         ".progress"

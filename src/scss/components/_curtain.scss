@@ -2,7 +2,7 @@
   position: relative;
   // overflow: hidden;
   --curtain-scale-x: 0;
-  --curtain-transform-origin: 0% 50%;
+  --curtain-transform-origin: 50% 100%;
 
   &::after {
     content: "";
@@ -12,8 +12,8 @@
     left: 0;
     width: 100%; // Slightly larger than parent to avoid glitchy transform artifact
     height: 100%;
-    transform: scale(var(--curtain-scale-x, 0), 1);
-    transform-origin: var(--curtain-transform-origin, 100% 50%);
-    background-color: darken($primary-color, 20%);
+    transform: scale(1, var(--curtain-scale-x, 0));
+    transform-origin: var(--curtain-transform-origin, 50% 100%);
+    background-color: darken($primary-color, 10%);
   }
 }

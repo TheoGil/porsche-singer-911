@@ -17,9 +17,9 @@ new Slideshow({
   // NOTE: Currently only works if all images have the same aspect ratio.
   // Refer to the resize function within the Sketch class
   images: [
-    "/public/slides/1.jpg",
-    "/public/slides/2.jpg",
-    "/public/slides/3.jpg"
+    "./public/slides/1.jpg",
+    "./public/slides/2.jpg",
+    "./public/slides/3.jpg"
   ],
   containerId: "js-slideshow-container",
   canvasId: "slideshow",
